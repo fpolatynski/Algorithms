@@ -6,21 +6,16 @@ class TreeNode:
 
 class Solution:
     def balanceBST(self, root: TreeNode) -> TreeNode:
-        sorted_tree = self.inorder_traversal(root)
-        return self.create_tree(sorted_tree)
+        return self.create_tree(self.inorder_traversal(root))
 
 
     def inorder_traversal(self, root: TreeNode):
         if root is None:
             return []
-        else:
-            return self.inorder_traversal(root.left) + [root.val] + self.inorder_traversal(root.right)
+        return self.inorder_traversal(root.left) + [root.val] + self.inorder_traversal(root.right)
             
     def create_tree(self, sorted_tree: List):
-        n = len(sorted_tree)
-        mid = n // 2
-        if n == 0:
+        if len(sorted_tree) == 0:
             return None
-        else:
-            return TreeNode(sorted_tree[mid], self.create_tree(sorted_tree[:mid]), self.create_tree(sorted_tree[mid+1:]))
+        return TreeNode(sorted_tree[len(sorted_tree) // 2], self.create_tree(sorted_tree[:len(sorted_tree) // 2]), self.create_tree(sorted_tree[len(sorted_tree) // 2 + 1:]))
     
